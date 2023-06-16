@@ -2,9 +2,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: pp-an
+  name: pgbouncer
   labels:
     app: pgbouncer
-  name: pgbouncer
 spec:
   replicas: 3
   selector:
@@ -15,45 +16,39 @@ spec:
       labels:
         app: pgbouncer
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: k8s.scaleway.com/security-group
-                operator: In
-                values:
-                - "postgres-an"
+      nodeSelector:
+        pg-an: "true"
       containers:
-      - image: bitnami/pgbouncer:latest
-        name: pgbouncer
-        ports:
-        - containerPort: 6432
-          protocol: TCP
-        resources:
-          requests:
-            cpu: 100m
-            memory: 100M
-        env:
-        - name: PGBOUNCER_POOL_MODE
-          value: "transaction"
-        - name: PGBOUNCER_PORT
-          value: "6432"
-        envFrom:
-        - secretRef:
-            name: pgbouncer
+        - image: bitnami/pgbouncer:latest
+          name: pgbouncer
+          ports:
+            - containerPort: 6432
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100M
+          env:
+            - name: PGBOUNCER_POOL_MODE
+              value: "transaction"
+            - name: PGBOUNCER_PORT
+              value: "6432"
+          envFrom:
+            - secretRef:
+                name: pgbouncer
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: pp-an
+  name: pgbouncer
   labels:
     app: pgbouncer
-  name: pgbouncer
 spec:
   ports:
-  - port: 6432
-    protocol: TCP
-    targetPort: 6432
+    - port: 6432
+      protocol: TCP
+      targetPort: 6432
   selector:
     app: pgbouncer
   type: ClusterIP

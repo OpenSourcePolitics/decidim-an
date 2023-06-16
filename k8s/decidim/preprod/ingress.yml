@@ -5,7 +5,7 @@ metadata:
   name: decidim-an-ingress
 spec:
   rules:
-    - host: petitions.assemblee-nationale.fr
+    - host: ppan-pprod.opensourcepolitics.net
       http:
         paths:
           - path: /

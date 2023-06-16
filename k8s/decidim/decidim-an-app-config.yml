@@ -1,0 +1,18 @@
+apiVersion: v1
+data:
+  APP_NAME: decidim_an
+  CACHE_ASSETS: "true"
+  NEW_RELIC_ENABLED: "false"
+  PREPARED_STATEMENTS: "false"
+  RACK_ATTACK_ENABLED: "false"
+  RAILS_ENV: production
+  RAILS_LOG_TO_STDOUT: "true"
+  RAILS_SERVE_STATIC_FILES: "true"
+  WEB_CONCURRENCY: "0"
+  SESSION_DAYS_TRIM_THRESHOLD:
+kind: ConfigMap
+metadata:
+  namespace: pp-an
+  name: decidim-an-app-config
+  labels:
+    app: decidim-an-app
