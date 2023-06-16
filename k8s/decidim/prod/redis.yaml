@@ -1,0 +1,8 @@
+---
+apiVersion: core.libre.sh/v1alpha1
+kind: Redis
+metadata:
+  name: an-redis
+spec:
+  disableAuth: true
+  persistence: {}

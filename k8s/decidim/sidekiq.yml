@@ -26,42 +26,64 @@ spec:
                 topologyKey: topology.kubernetes.io/zone
       terminationGracePeriodSeconds: 60 # put your longest Job time here plus security time.
       containers:
-      - name: decidim-an-sidekiq
-        image: rg.fr-par.scw.cloud/decidim-an/decidim-an:latest
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "450Mi"
-          limits:
-            cpu: "2"
-            memory: "1200Mi"
-        command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
-        ports:
-          - containerPort: 7433
-        livenessProbe:
-          httpGet:
-            path: /sidekiq_alive
-            port: 7433
-          initialDelaySeconds: 30 # app specific. Time your sidekiq takes to start processing.
-          timeoutSeconds: 5 # can be much less
-        readinessProbe:
-          httpGet:
-            path: /sidekiq_alive
-            port: 7433
-          initialDelaySeconds: 30 # app specific
-          timeoutSeconds: 5 # can be much less
-        lifecycle:
-          preStop:
-            exec:
-              # SIGTERM triggers a quick exit; gracefully terminate instead
-              command: [ './sidekiq_quiet.sh' ]
-        env:
-          - name: POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
-        envFrom:
-          - configMapRef:
-              name: decidim-an-app-config
-          - secretRef:
-              name: decidim-an-app-secrets
+        - name: decidim-an-sidekiq
+          image: rg.fr-par.scw.cloud/decidim-an/decidim-an:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "450Mi"
+            limits:
+              cpu: "2"
+              memory: "1200Mi"
+          command: ["sidekiq", "-C", "config/sidekiq.yml"]
+          ports:
+            - containerPort: 7433
+          livenessProbe:
+            httpGet:
+              path: /sidekiq_alive
+              port: 7433
+            initialDelaySeconds: 30 # app specific. Time your sidekiq takes to start processing.
+            timeoutSeconds: 5 # can be much less
+          readinessProbe:
+            httpGet:
+              path: /sidekiq_alive
+              port: 7433
+            initialDelaySeconds: 30 # app specific
+            timeoutSeconds: 5 # can be much less
+          lifecycle:
+            preStop:
+              exec:
+                # SIGTERM triggers a quick exit; gracefully terminate instead
+                command: [ './sidekiq_quiet.sh' ]
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          envFrom:
+            - configMapRef:
+                name: decidim-an-app-config
+            - secretRef:
+                name: decidim-an-app-secrets
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: decidim-an-sidekiq-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: decidim-an-sidekiq-deployment
+  minReplicas: 2
+  maxReplicas: 5
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

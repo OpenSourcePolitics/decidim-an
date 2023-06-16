@@ -48,4 +48,9 @@ data:
       location / {
         proxy_pass http://backend;
       }
+
+      location ~ ^/(admin_sign_in|admin|system) {
+        auth_basic "Ce site vous demande de vous connecter";
+        auth_basic_user_file /etc/nginx-secret/htpasswd;
+      }
     }
