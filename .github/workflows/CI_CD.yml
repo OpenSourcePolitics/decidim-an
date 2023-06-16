@@ -112,9 +112,21 @@ jobs:
           database_username: ${{ env.DATABASE_USERNAME }}
           database_password: ${{ env.DATABASE_PASSWORD }}
           database_host: ${{ env.DATABASE_HOST }}
+  build_and_push_image_dev:
+    name: Build and push image to Registry
+    if: "github.ref == 'refs/heads/develop'"
+    needs: [ lint, tests, system_tests, test_build ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: OpenSourcePolitics/build-and-push-images-action@master
+        with:
+          registry: ${{ vars.REGISTRY_ENDPOINT }}
+          namespace: ${{ vars.REGISTRY_NAMESPACE }}
+          password: ${{ secrets.TOKEN }}
+          image_name: ${{ vars.IMAGE_NAME }}
+          tag: "develop"
   build:
-    if: "github.ref == 'refs/heads/feature/kubernetes'"
-    # TODO: Migrate to proper branch
+    if: "github.ref == 'refs/heads/master'"
     # TODO: Update workflow to use the new build-and-test-images-action. See https://github.com/OpenSourcePolitics/decidim-app/blob/develop/.github/workflows/ci_cd.yml
     needs: [ lint, tests, system_tests, test_build ]
     runs-on: ubuntu-latest
