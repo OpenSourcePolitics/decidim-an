@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: pp-an
   name: decidim-an-sidekiq-deployment
 spec:
   selector:
@@ -69,6 +70,7 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
+  namespace: pp-an
   name: decidim-an-sidekiq-hpa
 spec:
   scaleTargetRef:

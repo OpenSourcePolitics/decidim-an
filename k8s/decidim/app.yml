@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: pp-an
   name: decidim-an-deployment
 spec:
   selector:
@@ -88,6 +89,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: pp-an
   name: decidim-an-svc
 spec:
   selector:
@@ -101,6 +103,7 @@ spec:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
+  namespace: pp-an
   name: decidim-an-hpa
 spec:
   scaleTargetRef:
