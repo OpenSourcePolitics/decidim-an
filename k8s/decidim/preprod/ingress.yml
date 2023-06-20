@@ -15,3 +15,16 @@ spec:
                 name: decidim-an-svc
                 port:
                   number: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: decidim-an-svc
+spec:
+  selector:
+    app: decidim-an-app
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80

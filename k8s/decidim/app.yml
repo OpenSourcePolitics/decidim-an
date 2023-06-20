@@ -85,20 +85,6 @@ spec:
           - secretRef:
               name: decidim-an-app-secrets
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: pp-an
-  name: decidim-an-svc
-spec:
-  selector:
-    app: decidim-an-app
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 80
----
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
