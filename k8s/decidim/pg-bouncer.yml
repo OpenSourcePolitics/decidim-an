@@ -2,7 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: pp-an
   name: pgbouncer
   labels:
     app: pgbouncer
@@ -40,7 +39,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: pp-an
   name: pgbouncer
   labels:
     app: pgbouncer

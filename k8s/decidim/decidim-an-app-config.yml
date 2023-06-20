@@ -12,7 +12,6 @@ data:
   SESSION_DAYS_TRIM_THRESHOLD:
 kind: ConfigMap
 metadata:
-  namespace: pp-an
   name: decidim-an-app-config
   labels:
     app: decidim-an-app
