@@ -1,7 +1,6 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  namespace: pp-an
   name: decidim-an-migration-job
 spec:
   ttlSecondsAfterFinished: 120
