@@ -3,8 +3,7 @@
 <div class="field">
   <%= form.text_field :title,
                       autofocus: true,
-                      disabled: !allowed_to?(:update, :initiative, initiative: current_initiative), value: translated_attribute(@form.title)
-  %>
+                      disabled: !allowed_to?(:update, :initiative, initiative: current_initiative), value: translated_attribute(@form.title) %>
 </div>
 
 <div class="field">
@@ -13,8 +12,7 @@
                      maxlength: 10000,
                      autocomplete: :off,
                      required: true,
-                     disabled: !allowed_to?(:update, :initiative, initiative: current_initiative), value: translated_attribute(@form.description)
-  %>
+                     disabled: !allowed_to?(:update, :initiative, initiative: current_initiative), value: translated_attribute(@form.description) %>
 </div>
 
 <% if single_initiative_type? %>
