@@ -15,9 +15,8 @@
   <ul class="vertical menu add-components">
     <% %w{CSV JSON}.each do |format| %>
       <li class="exports--format--<%= format.downcase %> exports--initiatives">
-        <%= button_to t("decidim.admin.exports.export_as", name: t("decidim.initiatives.admin.exports.initiatives"),
-                      export_format: format.upcase),
-                      export_initiatives_path(format: format), class: "dropdown-button", params: { collection_ids: collection_ids }, method: :post %>
+        <%= button_to t("decidim.admin.exports.export_as", name: t("decidim.initiatives.admin.exports.initiatives"), export_format: format.upcase),
+                      export_initiatives_path, class: "dropdown-button", params: { collection_ids: collection_ids, format: format }, method: :post %>
       </li>
     <% end %>
   </ul>
