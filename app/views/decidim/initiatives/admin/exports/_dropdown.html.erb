@@ -17,8 +17,10 @@
       <li class="exports--format--<%= format.downcase %> exports--initiatives">
         <%= button_to t("decidim.admin.exports.export_as", name: t("decidim.initiatives.admin.exports.initiatives"),
                       export_format: format.upcase),
-                    export_initiatives_path(format: format), class: "dropdown-button", params: { collection_ids: collection_ids }, method: :post %>
+                      export_initiatives_path(format: format), class: "dropdown-button", params: { collection_ids: collection_ids }, method: :post %>
       </li>
     <% end %>
   </ul>
 </div>
+
+<%= stylesheet_link_tag "decidim/admin/initiatives-extras" %>
