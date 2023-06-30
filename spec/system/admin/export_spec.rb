@@ -52,7 +52,7 @@ describe "Admin exports initiatives", type: :system do
     end
 
     it "displays success message" do
-      find("a", text: "EXPORT AS JSON").click
+      find("button", text: "EXPORT AS JSON").click
       expect(page).to have_content("Your export is currently in progress. You'll receive an email when it's complete.")
     end
   end
@@ -104,7 +104,7 @@ describe "Admin exports initiatives", type: :system do
       end
 
       it "displays success message" do
-        find("a", text: "EXPORT AS JSON").click
+        find("button", text: "EXPORT AS JSON").click
 
         expect(page).to have_content("Your export is currently in progress. You'll receive an email when it's complete.")
       end
