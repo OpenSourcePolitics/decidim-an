@@ -3,7 +3,7 @@
 require "omniauth/strategies/france_connect_uid"
 require "omniauth/strategies/france_connect_profile"
 
-if Rails.application.secrets.dig(:omniauth, :enable_multi_tenant)
+if Rails.application.secrets.dig(:omniauth_enable_multi_tenant) == 1
   Rails.application.config.middleware.use OmniAuth::Builder do
     OmniAuth.config.logger = Rails.logger
 
