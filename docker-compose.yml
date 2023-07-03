@@ -6,6 +6,7 @@ services:
       - pg-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=postgres
   app:
     build: .
     volumes:
@@ -17,6 +18,10 @@ services:
       - 3000:3000
     depends_on:
       - database
+    environment:
+      - DATABASE_HOST=database
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
 volumes:
   node_modules: {}
   bundle: {}
