@@ -94,7 +94,7 @@
                       <th class="small-12 first columns cityhall-bar">
                         <div class="decidim-logo" style="float: right; text-align: right; padding-right: 16px">
                           <% if @custom_url_for_mail_root.present? %>
-                            <%== I18n.t("layouts.decidim.mailer.footer", organization_name: @organization.name.html_safe, organization_url: @custom_url_for_mail_root)  %>
+                            <%== I18n.t("layouts.decidim.mailer.footer", organization_name: @organization.name.html_safe, organization_url: @custom_url_for_mail_root) %>
                           <% else %>
                             <%== I18n.t("layouts.decidim.mailer.footer", organization_name: @organization.name.html_safe, organization_url: decidim.root_url(host: @organization.host)) %>
                           <% end %>
