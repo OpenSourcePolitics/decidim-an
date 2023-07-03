@@ -102,7 +102,7 @@ jobs:
       DATABASE_PASSWORD: postgres
       DATABASE_HOST: host.docker.internal
     steps:
-      - uses: OpenSourcePolitics/build-and-test-images-action@debug
+      - uses: OpenSourcePolitics/build-and-test-images-action@master
         with:
           registry: ${{ vars.REGISTRY_ENDPOINT }}
           namespace: ${{ vars.REGISTRY_NAMESPACE }}
