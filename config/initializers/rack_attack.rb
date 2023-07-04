@@ -2,9 +2,8 @@
 
 # Enabled by default in production
 # Can be deactivated with 'ENABLE_RACK_ATTACK=0'
-return if Rails.application.secrets.dig(:decidim, :rack_attack, :enabled).zero?
-
-Rack::Attack.enabled = (Rails.application.secrets.dig(:decidim, :rack_attack, :enabled) == 1) || Rails.env.production?
+Rack::Attack.enabled = Rails.application.secrets.dig(:decidim, :rack_attack, :enabled) == 1
+return unless Rack::Attack.enabled
 
 # Remove the original throttle fron decidim-core
 # see https://github.com/decidim/decidim/blob/release/0.26-stable/decidim-core/config/initializers/rack_attack.rb#L19
