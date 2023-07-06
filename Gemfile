@@ -31,6 +31,7 @@ gem "sentry-ruby"
 
 gem "dotenv-rails"
 gem "health_check"
+gem "rack-attack", "~> 6.0"
 gem "sidekiq_alive"
 
 group :development, :test do
