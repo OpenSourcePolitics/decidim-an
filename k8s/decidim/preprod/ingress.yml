@@ -1,25 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  namespace: an
-  name: decidim-an-ingress
+  namespace: pp-an
+  name: decidim-pp-an-ingress
 spec:
   rules:
-    - host: petitions.assemblee-nationale.fr
+    - host: ppan-pprod.opensourcepolitics.net
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: decidim-an-svc
+                name: decidim-pp-an-svc
                 port:
                   number: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: decidim-an-svc
+  name: decidim-pp-an-svc
 spec:
   selector:
     app: decidim-an-app
@@ -28,4 +28,3 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 80
-

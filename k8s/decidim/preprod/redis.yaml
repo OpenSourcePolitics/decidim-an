@@ -1,0 +1,9 @@
+---
+apiVersion: core.libre.sh/v1alpha1
+kind: Redis
+metadata:
+  namespace: pp-an
+  name: pp-an-redis
+spec:
+  disableAuth: true
+  persistence: {}

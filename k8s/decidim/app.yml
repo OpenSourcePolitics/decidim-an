@@ -31,6 +31,9 @@ spec:
         - name: nginx-conf
           configMap:
             name: nginx-conf
+        - name: htpasswd
+          secret:
+            secretName: htpasswd
       containers:
       - image: nginx:alpine
         imagePullPolicy: Always
@@ -51,6 +54,9 @@ spec:
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/conf.d
+        - name: htpasswd
+          mountPath: "/etc/nginx-secret/"
+          readOnly: true
         startupProbe:
           httpGet:
             path: /health_check
@@ -79,31 +85,21 @@ spec:
           - secretRef:
               name: decidim-an-app-secrets
 ---
-apiVersion: v1
-kind: Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
 metadata:
-  name: decidim-an-svc
+  name: decidim-an-hpa
 spec:
-  selector:
-    app: decidim-an-app
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 80
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: decidim-an-app-config
-  labels:
-    app: decidim-an-app
-data:
-  RAILS_ENV: production
-  RAILS_SERVE_STATIC_FILES: "true"
-  APP_NAME: " decidim_an"
-  WEB_CONCURRENCY: "0"
-  RACK_ATTACK_ENABLED: "false"
-  CACHE_ASSETS: "true"
-  RAILS_LOG_TO_STDOUT: "true"
-  NEW_RELIC_ENABLED: "false"
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: decidim-an-deployment
+  minReplicas: 10
+  maxReplicas: 40
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 20
