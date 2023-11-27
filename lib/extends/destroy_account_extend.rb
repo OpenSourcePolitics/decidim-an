@@ -10,7 +10,7 @@ module DestroyAccountExtend
       return broadcast(:invalid) unless @form.valid?
 
       Decidim::User.transaction do
-        notify_admins if @enabled_admin_email
+        # notify_admins if @enabled_admin_email
         destroy_user_account!
         destroy_user_authorizations
         destroy_user_identities

@@ -58,7 +58,7 @@ module Decidim
         command.call
 
         expect(DestroyAccountMailer)
-          .to have_received(:notify)
+          .not_to have_received(:notify)
           .with(admin, user)
       end
 
