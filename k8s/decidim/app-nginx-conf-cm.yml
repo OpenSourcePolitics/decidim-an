@@ -5,7 +5,7 @@ metadata:
 data:
   default.conf: |
     upstream backend {
-      server localhost:3000;
+      server 127.0.0.1:3000;
     }
 
     # inactive means we keep stuff around for 1440m minutes regardless of last access (1 week)
@@ -14,6 +14,7 @@ data:
     proxy_cache_path /tmp/nginx_cache inactive=1440m levels=1:2 keys_zone=one:10m max_size=500m;
 
     server {
+      root /usr/share/nginx/html;
       access_log /var/log/nginx/access.log;
 
       listen 80;
@@ -42,10 +43,6 @@ data:
         proxy_ignore_headers Cache-Control Expires;
         expires 1y;
         proxy_cache_valid 200 301 302 1y;
-        proxy_pass http://backend;
-      }
-
-      location / {
         proxy_pass http://backend;
       }
 
