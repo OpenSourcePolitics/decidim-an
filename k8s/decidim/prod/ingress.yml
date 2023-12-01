@@ -24,8 +24,11 @@ spec:
   selector:
     app: decidim-an-app
   ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 80
-
+  - name: app
+    protocol: TCP
+    port: 3000
+    targetPort: 3000
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
