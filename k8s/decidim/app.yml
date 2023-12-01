@@ -44,12 +44,12 @@ spec:
                 - minio
             weight: 80
       volumes:
-        - name: nginx-conf
-          configMap:
-            name: nginx-conf
-        - name: htpasswd
-          secret:
-            secretName: htpasswd
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+      - name: htpasswd
+        secret:
+          secretName: htpasswd
       containers:
       - image: nginx:alpine
         imagePullPolicy: Always
@@ -144,15 +144,15 @@ spec:
             exec:
               command: ["/bin/sleep", "5"]
         env:
-          - name: POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         envFrom:
-          - configMapRef:
-              name: decidim-an-app-config
-          - secretRef:
-              name: decidim-an-app-secrets
+        - configMapRef:
+            name: decidim-an-app-config
+        - secretRef:
+            name: decidim-an-app-secrets
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
