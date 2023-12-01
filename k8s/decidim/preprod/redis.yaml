@@ -6,4 +6,5 @@ metadata:
   name: pp-an-redis
 spec:
   disableAuth: true
-  persistence: {}
+  persistence:
+    enabled: true
