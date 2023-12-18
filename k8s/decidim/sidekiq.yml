@@ -31,10 +31,10 @@ spec:
         resources:
           requests:
             cpu: "100m"
-            memory: "450Mi"
+            memory: "1000Mi"
           limits:
             cpu: "2"
-            memory: "1200Mi"
+            memory: "3000Mi"
         command: ["sidekiq", "-C", "config/sidekiq.yml"]
         ports:
         - containerPort: 7433
