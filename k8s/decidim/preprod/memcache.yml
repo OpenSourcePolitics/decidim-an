@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: memcached
+    app.kubernetes.io/instance: pp-an
+    app.kubernetes.io/name: decidim
+    app.kubernetes.io/version: 1.3.0
+  name: pp-an--de-memcached
+  namespace: pp-an
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: memcached
+      app.kubernetes.io/instance: pp-an
+      app.kubernetes.io/name: decidim
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: memcached
+        app.kubernetes.io/instance: pp-an
+        app.kubernetes.io/name: decidim
+        app.kubernetes.io/version: 1.3.0
+    spec:
+      containers:
+      - image: docker.io/memcached:1.6
+        imagePullPolicy: IfNotPresent
+        name: memcached
+        ports:
+        - containerPort: 11211
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 1Gi
+          requests:
+            cpu: 5m
+            memory: 32Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: memcached
+    app.kubernetes.io/instance: pp-an
+    app.kubernetes.io/name: decidim
+  name: an--de-memcached
+  namespace: pp-an
+spec:
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 11211
+    protocol: TCP
+    targetPort: 11211
+  selector:
+    app.kubernetes.io/component: memcached
+    app.kubernetes.io/instance: pp-an
+    app.kubernetes.io/name: decidim
+  type: ClusterIP
+
