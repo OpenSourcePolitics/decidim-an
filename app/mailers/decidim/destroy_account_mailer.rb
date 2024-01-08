@@ -14,7 +14,7 @@ module Decidim
         @initiatives = Decidim::Initiative.where(author: @user).where.not(state: [:created, :discarded, :classified])
 
         subject = I18n.t("notify.subject", scope: "decidim.destroy_account_mailer")
-        mail(to: user.email, subject: subject)
+        mail(to: @admin.email, subject: subject)
       end
     end
 

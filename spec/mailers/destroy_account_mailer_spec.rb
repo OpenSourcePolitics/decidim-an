@@ -6,6 +6,7 @@ module Decidim
   describe DestroyAccountMailer, type: :mailer do
     let(:organization) { create(:organization) }
     let(:admin) { create(:user, :admin, organization: organization) }
+    let(:user) { create(:user, :confirmed, organization: organization) }
     let!(:initiative) { create(:initiative, organization: organization, state: :published) }
 
     let(:default_subject) { "A user has deleted his account." }
@@ -15,6 +16,8 @@ module Decidim
       let(:mail) { described_class.notify(admin, initiative.author) }
 
       it "notify admins" do
+        expect(mail.to).not_to include(user.email)
+        expect(mail.to).to include(admin.email)
         expect(mail.subject).to eq(default_subject)
         expect(mail.body.encoded).to match(default_body)
         expect(mail.body.encoded).to match(initiative.id.to_s)
@@ -25,7 +28,6 @@ module Decidim
 
       context "when user has no initiative" do
         let!(:initiative) { nil }
-        let(:user) { create(:user, :confirmed, organization: organization) }
         let(:mail) { described_class.notify(admin, user) }
 
         it "notify admins" do

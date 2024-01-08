@@ -62,6 +62,20 @@ module Decidim
           .with(admin, user)
       end
 
+      context "when admin has no email_on_notification" do
+        let!(:admin) { create(:user, :confirmed, :admin, organization: user.organization, email_on_notification: false) }
+
+        it "does not notify admin" do
+          allow(DestroyAccountMailer).to receive(:notify).with(admin, user).and_call_original
+
+          command.call
+
+          expect(DestroyAccountMailer)
+            .not_to have_received(:notify)
+            .with(admin, user)
+        end
+      end
+
       it "destroys the current user avatar" do
         command.call
         expect(user.reload.avatar).not_to be_present
