@@ -41,7 +41,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "letter_opener_web", "~> 1.3"
   gem "listen", "~> 3.1"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
@@ -54,6 +53,7 @@ group :production do
   gem "dalli-elasticache"
   gem "fog-aws"
   gem "hiredis"
+  gem "letter_opener_web", "~> 1.3"
   gem "lograge"
   gem "newrelic_rpm"
   gem "passenger"
