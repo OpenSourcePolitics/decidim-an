@@ -13,7 +13,8 @@ module DecidimAws
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.time_zone = "Europe/Paris"
-    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.yml").to_s]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "decidim-*", "*.yml").to_s]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "term-customizer-export", "*.yml").to_s]
 
     Decidim.unconfirmed_access_for = 0.days
 

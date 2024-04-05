@@ -112,10 +112,7 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
-  config.cache_store = :redis_cache_store, {
-    url: ENV["REDIS_URL"],
-    namespace: "#{ENV["APP_NAME"]}-memory-store"
-  }
+  config.cache_store = :mem_cache_store, ENV.fetch("MEMCACHE_SERVERS", "localhost:11211")
 
   if ENV["CACHE_ASSETS"].present?
     config.public_file_server.headers = {

@@ -6,34 +6,50 @@ spec:
   selector:
     matchLabels:
       app: decidim-an-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
         app: decidim-an-app
     spec:
+      terminationGracePeriodSeconds: 60
       tolerations:
       - key: "k8s.scaleway.com/dedicated"
         value: "decidim-app"
         effect: "NoSchedule"
       affinity:
-        podAntiAffinity:
+        nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - decidim-an-app
-                topologyKey: topology.kubernetes.io/zone
+          - preference:
+              matchExpressions:
+              - key: node.libre.sh/roles
+                operator: DoesNotExist
+            weight: 20
+          - preference:
+              matchExpressions:
+              - key: node.libre.sh/roles
+                operator: NotIn
+                values:
+                - postgres
+            weight: 100
+          - preference:
+              matchExpressions:
+              - key: node.libre.sh/roles
+                operator: NotIn
+                values:
+                - minio
+            weight: 80
       volumes:
-        - name: nginx-conf
-          configMap:
-            name: nginx-conf
-        - name: htpasswd
-          secret:
-            secretName: htpasswd
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+      - name: htpasswd
+        secret:
+          secretName: htpasswd
       containers:
       - image: nginx:alpine
         imagePullPolicy: Always
@@ -42,48 +58,103 @@ spec:
         - containerPort: 80
           name: http
           protocol: TCP
-        env:
-        - name: BACKEND_HOST
-          value: localhost
         resources: 
           requests:
-            cpu: "100m"
-            memory: "80Mi"
+            cpu: "5m"
+            memory: "20Mi"
           limits:
-            memory: "400Mi"
+            memory: "50Mi"
         volumeMounts:
         - name: nginx-conf
           mountPath: /etc/nginx/conf.d
         - name: htpasswd
           mountPath: "/etc/nginx-secret/"
           readOnly: true
-        startupProbe:
-          httpGet:
-            path: /health_check
-            port: 80
-          initialDelaySeconds: 10
+        livenessProbe:
           failureThreshold: 3
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 30
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
           periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        startupProbe:
+          failureThreshold: 11
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        lifecycle:
+          preStop:
+            exec:
+              command: ["sh", "-c", "sleep 5 && /usr/sbin/nginx -s quit"]
       - name: app
-        image: rg.fr-par.scw.cloud/decidim-an/decidim-an:latest
+        image: rg.fr-par.scw.cloud/decidim-an/decidim-an:master
         imagePullPolicy: Always
         resources:
-          requests:
-            cpu: "500m"
-            memory: "450Mi"
           limits:
-            cpu: "2"
-            memory: "1200Mi"
+            memory: 4Gi
+          requests:
+            cpu: 500m
+            memory: 450Mi
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health_check
+            port: 3000
+            scheme: HTTP
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 30
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /health_check
+            port: 3000
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        startupProbe:
+          failureThreshold: 11
+          httpGet:
+            path: /health_check
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sleep", "5"]
         env:
-          - name: POD_IP
-            valueFrom:
-              fieldRef:
-                fieldPath: status.podIP
+        - name: MEMCACHE_SERVERS
+          value: an--de-memcached:11211
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         envFrom:
-          - configMapRef:
-              name: decidim-an-app-config
-          - secretRef:
-              name: decidim-an-app-secrets
+        - configMapRef:
+            name: decidim-an-app-config
+        - secretRef:
+            name: decidim-an-app-secrets
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -94,12 +165,12 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: decidim-an-deployment
-  minReplicas: 10
-  maxReplicas: 40
+  minReplicas: 3
+  maxReplicas: 80
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 20
+        averageUtilization: 80

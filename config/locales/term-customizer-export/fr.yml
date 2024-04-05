@@ -1,0 +1,555 @@
+---
+fr:
+  decidim:
+    admin:
+      actions:
+        new: "+ %{name}"
+        publish: Publier
+        unpublish: Irrecevable
+      models:
+        initiatives:
+          fields:
+            published_at: Publié à
+            state: Sort
+        area:
+          fields:
+            name: Commission
+      exports:
+        export_as: "%{name} en format %{export_format}"
+        notice: 'L''export est en cours. Vous recevrez un mail contenant le fichier
+          dans quelques minutes. '
+      filters:
+        decidim_area_id_eq:
+          label: Commission
+        state_eq:
+          values:
+            discarded: Irrecevable
+            examinated: Examinée en commission
+            evaluating: Évaluation
+            validating: Validation technique
+            debatted: Débattue en séance publique
+            classified: Classée par la commission
+            published: Enregistrée
+            accepted: Acceptée
+            rejected: Rejetée
+            withdrawn: Retiré
+            created: Créée
+          label: Sorts
+      titles:
+        areas: Commission
+      menu:
+        areas: Commission
+    initiatives:
+      admin:
+        answers:
+          edit:
+            title: Répondez pour %{title}
+          info_initiative:
+            initiative_votes_count: Signatures
+            state: Sort
+        committee_requests:
+          index:
+            title: Gestion des co-auteurs
+            invite_to_committee_help: Partagez ce lien pour inviter d'autres utilisateurs
+              à devenir co-auteur de votre pétition
+            no_members_yet: Il n'y a pas encore de co-auteurs de la pétition
+        initiatives:
+          edit:
+            success: Votre pétition est bien déposée et transmise aux services de
+              l'Assemblée nationale. Un courriel vous sera envoyé pour vous informer
+              du résultat de l’examen de sa recevabilité.
+            discard: Irrecevable
+      initiatives:
+        author:
+          deleted: Utilisateur ayant supprimé son compte
+        committee_members:
+          invite_to_committee_help: Partagez ce lien pour inviter d'autres utilisateurs
+            à devenir co-auteur de votre pétition
+          title: Gestion des co-auteurs
+          no_members_yet: Il n'y a pas encore de co-auteurs
+        filters:
+          select_an_area: Selectionnez une commission
+          state: Statut de la pétition
+          sort: Sort de la pétition
+        index_header:
+          new_initiative: Déposer une pétition
+        orders:
+          answer_date: Date d'attribution du sort
+        vote_cabin:
+          verification_required: Identifiez-vous pour signer la pétition
+          already_voted: Signée ! (Cliquez pour annuler)
+        show:
+          confirm: 'Confirmez-vous votre souhait d''envoyer cette pétition aux services
+            de l''Assemblée nationale pour validation ? Attention : il ne vous sera
+            plus possible de la modifier, ni d’ajouter ou retirer d’éventuels co-auteurs.'
+        result:
+          answer_title:
+            accepted: Cette pétition a été acceptée car
+            rejected: Cette pétition a été rejetée parce que
+            classified: 'Cette pétition a été classée par la commission '
+            examinated: 'Cette pétition a été examinée en commission '
+            discarded: 'Cette pétition a été déclarée irrecevable '
+            debatted: 'Cette pétition a été débattue en séance publique '
+            published: 'Cette pétition a été enregistrée '
+          initiative_rejected_reason: Cette pétition a été rejetée car elle n'a pas
+            atteint le nombre de signatures requis dans le délai de collecte.
+      committee_requests:
+        new:
+          help_text: Vous êtes sur le point de demander à devenir co-auteur de cette
+            pétition.
+        spawn:
+          success: Votre demande a bien été enregistrée. Vous pouvez maintenant informer
+            l'auteur de la pétition qu'il peut valider votre participation.
+        approve:
+          success: La demande a été approuvée avec succès
+        revoke:
+          success: La demande a été refusée avec succès
+      create_initiative:
+        promotal_committee:
+          individual_help_text: Pour ajouter des co-auteurs, vous devez partager le
+            lien ci-dessous avec les personnes concernées <b>avant d'envoyer la pétition
+            en validation</b>. Lorsque vos contacts recevront ce lien, ils devront
+            suivre les étapes indiquées. Vous devrez ensuite valider les demandes
+            de participation de chaque co-auteur en vous rendant sur le formulaire
+            d'édition de la pétition. <br/><br/>La validation des co-auteurs n’est
+            possible qu'<b>avant envoi de votre pétition à la validation</b>, et s'effectue
+            en utilisant les icônes en forme de coche (✓) situées à côté du nom de
+            chaque co-auteur.
+        share_committee_link:
+          invite_to_committee_help: Lien pour inviter des co-auteurs
+        fill_data:
+          select_area: Sélectionnez une commission
+          fill_data_help: "Vérifier le contenu de votre pétition. Votre titre est-il
+            facile à comprendre ? L'objectif de votre pétition est-il clair ?\n<br/><br/>\nSi
+            vous le souhaitez, vous pouvez indiquer dans la description de votre pétition,
+            la fonction au nom de laquelle vous la déposez (responsable d’une association,
+            d’un collectif etc.). "
+        finish:
+          back_to_initiatives: Retourner à la liste des pétitions
+          go_to_my_initiatives: Accéder à mes pétitions
+          callout_text: 'Votre pétition est rédigée et enregistrée dans votre tableau
+            de bord. Attention ! Elle n''est pas encore publiée : il vous reste à
+            l''envoyer pour validation aux services de l’Assemblée nationale (voir
+            ci-dessous).'
+          edit_my_initiative: Modifier ma pétition
+          confirm: 'Confirmez-vous votre souhait d''envoyer cette pétition aux services
+            de l''Assemblée nationale pour validation ? Attention : il ne vous sera
+            plus possible de la modifier, ni d’ajouter ou retirer d’éventuels co-auteurs.'
+        finish_help:
+          help_in_person_signatures: Si vous avez choisi de recueillir les signatures
+            en présentiel ou de façon combinée, vous devrez télécharger les informations
+            requises.
+          help_text: 'Votre projet de pétition est bien enregistré. '
+          help_for_organizations: Si vous n'avez rien à ajouter, vous pouvez aussi
+            envoyer votre pétition dès maintenant aux services de l'Assemblée nationale
+            en cliquant sur le bouton "Envoyer pour validation" ci-dessous, ou en
+            cliquant sur "Accéder à mes pétitions" puis "Envoyer à la validation technique".
+          initiatives_page_link: 'Vous pouvez encore modifier ce projet ou ajouter
+            des co-auteurs en cliquant sur "Accéder à mes pétitions". '
+          access_reminder: Si vous n'avez rien à ajouter, vous pouvez aussi envoyer
+            votre pétition dès maintenant en cliquant sur le bouton "Envoyer pour
+            validation" ci-dessous, ou en cliquant sur "Accéder à mes pétitions" puis
+            "Envoyer à la validation technique"
+        show_similar_initiatives:
+          continue: Ma pétition est différente
+        previous_form:
+          help: "Une fois votre pétition déposée, un premier contrôle de recevabilité
+            sera effectué avant son enregistrement et sa publication. <br>\n <br>\nLes
+            services de l'Assemblée nationale vérifient que la pétition est rédigée
+            en français et ne contient pas de propos injurieux, obscènes ou discriminatoires.
+            <br>\n <br>\nEn fonction de la thématique qu'elle aborde, votre pétition
+            sera ensuite renvoyée à l'examen de l'une des huit commissions permanentes
+            de l'Assemblée nationale. "
+      events:
+        approve_membership_request:
+          email_intro: "%{author_name} a accepté votre demande de figurer parmi les
+            co-auteurs de la pétition %{resource_title}."
+          email_outro: 'Vous avez reçu cette notification car vous avez demandé à
+            être co-auteur cette pétition : %{resource_title}'
+          email_subject: "%{author_name} a accepté votre demande de faire partie des
+            co-auteurs de la pétition."
+        revoke_membership_request:
+          email_outro: 'Vous avez reçu cette notification car vous avez demandé à
+            être co-auteur de cette pétition : %{resource_title}'
+          email_subject: "%{author_name} a rejeté votre demande d'être co-auteur de
+            la pétition."
+          email_intro: "%{author_name} a rejeté votre demande pour être co-auteur
+            de la pétition %{resource_title}."
+        spawn_committee_request_event:
+          email_subject: "%{applicant_name} a demandé à devenir co-auteur de votre
+            pétition"
+          email_intro: "%{applicant_name} a demandé à devenir co-auteur de la pétition
+            %{resource_title}. Pour accepter ou rejeter cette demande, rendez-vous
+            dans le formulaire d'édition de cette pétition. La validation des co-auteurs
+            n’est possible qu'avant envoi de votre pétition à la validation, et s'effectue
+            en utilisant les icônes en forme de coche (✓) situées à côté du nom de
+            chaque co-auteur. "
+      initiatives_mailer:
+        promotal_committee_help: "Vous pouvez encore le modifier et ajouter des coauteurs
+          jusqu'à son envoi pour enregistrement auprès des services de l'Assemblée
+          nationale. \nEnvoyez le lien suivant pour inviter des coauteurs :"
+        technical_validation_for: Un enregistrement a été demandé pour la pétition
+          %{title}.
+        technical_validation_body_for: Un enregistrement a été demandé pour la pétition
+          "%{title}".
+        creation_subject: Votre projet de pétition "%{title}" est sauvegardé
+        more_information: Vous trouverez ici plus d'informations sur le processus
+          de création d'une pétition.
+        initiative_link:
+          check_initiative_details: Vous pouvez accéder aux détails de la pétition
+          here: ici
+        status_change_body_for: 'Le statut de la pétition %{title} a été changé pour
+          : %{state}'
+        status_change_for: la pétition %{title} a changé de statut
+        progress_report_body_for: La pétition "%{title}" a atteint %{percentage}%
+          des signatures requises.
+        progress_report_for: Franchissement d'un seuil pour la pétition "%{title}"
+      application_helper:
+        filter_area_values:
+          all: Toutes
+        filter_state_values:
+          answered: A reçu une réponse
+          closed: Fermée
+          classified: Classée par la commission
+          debatted: Débattue en séance publique
+          examinated: Examinée en commission
+          published: Enregistrée
+          all: Toutes
+      initiative_signatures:
+        fill_personal_data:
+          select_scope: Sélectionnez votre département
+          help: Veuillez compléter le formulaire ci-dessous pour valider votre signature.
+            Aucun lien ne sera établi ni stocké entre votre identité et le département
+            saisi.
+          select_scope_label: 'Sélectionnez votre département '
+      initiative_votes:
+        create:
+          success_html: Toutes nos félicitations ! La pétition <strong> %{title}</strong>
+            a bien été signée.
+      pages:
+        home:
+          highlighted_initiatives:
+            active_initiatives: Dernières pétitions publiées
+            see_all_initiatives: Voir toutes les pétitions
+          answered_initiatives:
+            active_initiatives: Dernières pétitions ayant reçu un sort
+      update:
+        error: Une erreur est survenue lors de la mise à jour de la pétition.
+        success: 'La pétition a bien été mis à jour. '
+      show:
+        badge_name:
+          created: Créé
+          discarded: Rejetée
+          validating: Validation technique
+          published: Enregistrée
+          classified: Classée par la commission
+          examinated: Examinée en commission
+          debatted: Débattue en séance publique
+      state:
+        accepted: Acceptée
+        discarded: Retirée
+        rejected: Rejetée
+        created: Créée
+        published: Enregistrée
+      states:
+        accepted: Acceptées
+        expired: Expirées
+        classified: Classée par la commission
+        examinated: Examinée en commission
+        debatted: Débattue en séance publique
+      admin_states:
+        examinated: Examinée en commission
+        classified: Classée par la commission
+        debatted: Débattue en séance publique
+        published: Enregistrée
+        discarded: Irrecevable
+    profile:
+      deleted: Compte utilisateur supprimé
+    shared:
+      version_author:
+        deleted: Compte utilisateur supprimé
+      participatory_space_filters:
+        filters:
+          areas: Commissions
+      login_modal:
+        sign_up: S'identifier
+        please_sign_in: 'S''identifier '
+    account:
+      delete:
+        alert: Cette action ne peut pas être annulée. Si vous supprimez votre compte,
+          vous ne pourrez plus vous connecter.
+        confirm:
+          close: Fermer
+          ok: Oui, je souhaite supprimer mon compte
+          question: Êtes-vous sûr de vouloir supprimer votre compte ?
+          title: SUPPRIMER MON COMPTE
+        explanation: Veuillez indiquer la raison pour laquelle vous souhaitez supprimer
+          votre compte (facultatif).
+      show:
+        update_account: Mettre à jour votre compte
+        custom_agreement: Je certifie être citoyen français ou résider régulièrement
+          en France, ainsi que l’exactitude des informations du profil
+    accessibility:
+      skip_button: Aller au contenu principal
+    notifications_settings:
+      show:
+        email_on_notification: Je souhaite recevoir un email à chaque fois que je
+          reçois une notification
+    data_portability:
+      export:
+        ready: Prêt
+      show:
+        download_data: Télécharger les données
+        request_data: Demander les données
+        download_data_description: Un fichier contenant toutes les informations associées
+          à votre compte sera envoyé à <strong>%{user_email}</strong>. Cet e-mail
+          contiendra un fichier .zip et un mot de passe pour l'ouvrir.<br/><br/>Pour
+          décompresser le fichier, vous aurez besoin de <a href="https://www.7-zip.org/">7-Zip</a>
+          (pour Windows) ou <a href="https://www.keka.io/">Keka</a> (pour MacOS).
+          Si vous utilisez Linux, la plupart du temps, vous l'aurez installé par défaut.
+          Sinon, vous pouvez utiliser <a href="https://gitlab.gnome.org/GNOME/file-roller">File
+          Roller</a> ou <a href="https://peazip.github.io">PeaZip</a>.
+    devise:
+      omniauth_registrations:
+        new:
+          custom_agreement: Je certifie être citoyen français ou résider régulièrement
+            en France, ainsi que l’exactitude des informations du profil
+          complete_profile: Complétez votre profil
+          subtitle: Subtitle
+          sign_up: S'identifier
+          registration_info: "Les informations relatives à vos nom, prénoms et adresses
+            électroniques et postales sont requises, conformément au Règlement de
+            l’Assemblée nationale, afin de confirmer votre identité et de permettre
+            aux services de l’Assemblée nationale, dans le cas où votre pétition est
+            examinée par les députés, de vous contacter. \n<br/> <br/>\nSeuls votre
+            nom et votre prénom seront rendus publics."
+      sessions:
+        new:
+          sign_up_disabled: Pour vous connecter cliquez sur l'un des boutons ci-dessous
+            en fonction de l'action que vous souhaitez réaliser.
+          sign_in_disabled: Sign in disabled
+      registrations:
+        new:
+          subtitle: Subtitle
+          sign_up: S'identifier
+          sign_in: S'identifier
+    authorization_handlers:
+      france_connect_profile:
+        name: Identification FranceConnect comme Auteur
+      france_connect_uid:
+        name: Identification FranceConnect comme Signataire
+      omniauth_anti_affinity:
+        explanation: Vous devez vous connecter avec un autre compte pour valider cette
+          autorisation.
+      granted_at: Accordé le
+      expired_at: Expiré le
+      expires_at: Expire le
+    authorization_modals:
+      content:
+        missing:
+          authorize: S'identifier avec "%{authorization}"
+          title: Identification par FranceConnect
+          explanation: Vous devez changer de compte pour signer et pour déposer une
+            pétition. Pour signer, le dispositif nous permet de nous assurer que vous
+            êtes bien une personne physique et que vous ne signez qu’une fois, tout
+            en préservant votre anonymat. Pour déposer une pétition, le dispositif
+            permet à l'Assemblée nationale de ne récupérer que les informations nécessaires
+            sur les auteurs de pétitions.
+    verifications:
+      omniauth:
+        errors:
+          anti_affinity: 'Vous ne pouvez pas être connecté(e) avec ces 2 identités
+            en même temps: %{anti_affinity}'
+          minimum_age: Vous devez être une personne majeure de nationalité française
+            ou résidant régulièrement en France pour déposer ou signer une pétition.
+        admin:
+          authorizations:
+            index:
+              actions:
+                metadata: Voir le profil
+      metadata:
+        content:
+          title: Données issues de FranceConnect
+      csv_census:
+        authorizations:
+          new:
+            success: Vous êtes bien identifié(e).
+    omniauth:
+      france_connect_uid:
+        explanation: |-
+          <b><font size="6">Pour signer une pétition</font></b>
+          <br/>
+          <b>L'identification par FranceConnect permet de préserver votre anonymat</b> (aucune donnée personnelle n'est conservée), tout en garantissant qu'une pétition n'est signée qu'une seule fois par une même personne physique. FranceConnect est la solution proposée par l'État pour sécuriser et simplifier la connexion à plus de 700 services en ligne.
+      france_connect_profile:
+        explanation: 'Les informations relatives à vos nom, prénoms et adresses électroniques
+          et postales sont requises, conformément au Règlement de l’Assemblée nationale,
+          afin de confirmer votre identité et de permettre aux services de l’Assemblée
+          nationale, dans le cas où votre pétition est examinée par les députés, de
+          vous contacter. <br/> <br/> Seuls votre nom et votre prénom seront rendus
+          publics. '
+    menu:
+      initiatives: Liste des pétitions
+    pages:
+      terms_and_conditions:
+        accept:
+          success: Merci d'avoir accepté les conditions d'utilisations.
+      index:
+        subheading: Naviguer à travers les pages d'aide de la plateforme des pétitions
+          de l'Assemblée nationale
+    search:
+      term_input_placeholder: rechercher
+    events:
+      initiatives:
+        milestone_completed:
+          support_threshold_reached:
+            email_outro: 'Une mise en ligne manuelle de cette pétition doit donc être
+              effectuée sur le site de l''Assemblée nationale et un courriel doit
+              être adressé aux auteurs, afin de les informer de cette mise en ligne
+              et de la fixation d''un délai d''un an pour recueillir toute nouvelle
+              signature. '
+            email_subject: 'Une pétition a atteint 100 000 signatures. '
+            email_intro: La pétition %{resource_title} a atteint le seuil de 100 000
+              signatures.
+            notification_title: La pétition <a href="%{resource_path}">%{resource_title}</a>
+              a atteint 100 000 signatures.
+          affected_user:
+            email_subject: Votre pétition" %{resource_title}" a dépassé le seuil de
+              %{percentage}% de signatures sur un objectif de 100 000 / 500 000.
+            email_outro: Vous avez reçu cette notification car vous êtes l'auteur
+              ou le co-auteur de cette pétition.
+            email_intro: Votre pétition" %{resource_title}" a dépassé le seuil %{percentage}%
+              sur un objectif de 100 000 / 500 000.
+            notification_title: Votre pétition <a href="%{resource_path}">%{resource_title}</a>
+              a dépassé le seuil de %{percentage}% de signatures sur un objectif de
+              100 000 / 500 000.
+          follower:
+            email_subject: Seuil intermédiaire de signatures atteint
+        admin:
+          initiative_sent_to_technical_validation:
+            email_intro: Un enregistrement a été demandé pour la pétition %{resource_title}.
+              Consultez-la sur <a href="%{admin_initiative_url}">le panneau d'administration</a>
+        initiative_sent_to_technical_validation:
+          email_subject: 'Un enregistrement a été demandé pour la pétition %{resource_title}. '
+          email_intro: Un enregistrement a été demandé pour la pétition %{resource_title}.
+            Consultez-la sur <a href="%{admin_initiative_url}">le panneau d'administration</a>
+        support_threshold_reached:
+          email_subject: Seuil de signatures atteint
+          email_outro: Vous avez reçu cette notification car vous êtes administrateur
+            de la plateforme.
+          notification_title: 'La pétition <a href="%{resource_path}">%{resource_title}</a>
+            a atteint le seuil de 100 000 signatures. '
+          email_intro: 'La pétition "%{resource_title}" a atteint 100 000 signatures. '
+    destroy_account_mailer:
+      notify:
+        destroy_account_explanation: Vous avez reçu cette notification parce que vous
+          êtes administrateur de la plate-forme.
+        destroy_account_html: Un utilisateur a supprimé son compte. Nous vous invitons
+          à aller déposer ses requêtes.
+        hello: Bonjour %{name}
+        subject: Un utilisateur a supprimé son compte.
+  activemodel:
+    attributes:
+      initiatives_type:
+        attachments_enabled: Autoriser les utilisateurs à ajouter des pièces-jointes
+          à leur pétition
+        promoting_committee_enabled: Activer les comités de promotion sur ce type
+          de pétition (témoin.s dont l'invitation par l'auteur est obligatoire pour
+          la validation de la pétition si cette fonctionnalité est activée)
+        minimum_committee_members: Minimum d'auteurs de la pétition
+        area_enabled: Autoriser les administrateurs à attribuer une commission
+        description: Contenu
+      initiatives_committee_member:
+        user: Liste des auteurs de la pétition
+      assembly:
+        area_id: Commission
+        decidim_area_id: Commission
+      area:
+        area_type: Commission
+      account:
+        delete_reason: Pour quelle(s) raison(s) supprimez-vous votre compte ?
+      initiatives_vote:
+        resident: Je certifie être citoyen français ou résider régulièrement en France,
+          ainsi que l’exactitude du département saisi.
+        user_scope_id: Veuillez sélectionner votre département de résidence
+  layouts:
+    decidim:
+      user_menu:
+        admin_dashboard: Gérer mes pétitions
+        sign_out: Déconnexion
+        profile: Mon profil
+      admin:
+        initiative:
+          committee_members: Liste des auteurs de la pétition
+      initiative_creation_header:
+        promotal_committee: Ajout de co-auteurs
+        finish: Envoi pour validation
+        fill_data: Relecture
+        previous_form: Rédaction
+        back: Retour
+        select_initiative_type: Sélectionnez le type de pétition
+        step: Étape %{current} de %{total}
+        title: Créer une nouvelle pétition
+        show_similar_initiatives: Comparaison avec les autres pétitions
+      user_profile:
+        my_data: Mes données
+        title: Profil utilisateur
+      initiative_signature_creation_header:
+        finish: Terminer
+      header:
+        sign_in: S'identifier
+        sign_up: S'identifier
+      footer:
+        made_with_open_source: 'Site réalisé par <a target="_blank" href="https://opensourcepolitics.eu">Open
+          Source Politics</a> grâce au <a target="_blank" href="https://github.com/decidim/decidim">logiciel
+          libre Decidim</a>. '
+      cookie_warning:
+        link_label: ici
+        ok: '"J''accepte"'
+        description_html: Ce site utilise des cookies. En continuant à parcourir le
+          site, vous acceptez notre utilisation des cookies. En savoir plus à ce sujet
+          %{link}.
+      initiatives:
+        initiative:
+          check_and_support: Voir
+      mailer:
+        footer: À bientôt sur la <a href="%{organization_url}", rel="notrack">plateforme
+          des pétitions de l'Assemblée nationale</a>.
+      initiative_header_steps:
+        description: Date limite de recueil des signatures
+  devise:
+    shared:
+      links:
+        forgot_your_password: Mot de passe oublié ?
+        sign_in_with_provider: S'identifier avec FranceConnect
+    failure:
+      unauthenticated: 'Vous devez vous authentifier via FranceConnect pour effectuer
+        cette action. '
+    omniauth_callbacks:
+      success: FranceConnect vous a bien authentifié(e) comme une personne physique
+        unique.
+    sessions:
+      signed_out: Une requête de déconnexion a été envoyée à FranceConnect.
+      new:
+        sign_in: S'identifier
+    registrations:
+      new:
+        sign_up: S'identifier
+    mailer:
+      invitation_instructions:
+        ignore: Votre compte ne sera pas créé avant d'avoir cliqué sur le lien ci-dessus
+          et défini votre identifiant et votre mot de passe.
+        invited_you_as_admin: Vous avez été invité à devenir administrateur de la
+          plateforme des pétitions de l'Assemblée nationale. Merci d'accepter cette
+          invitation grâce au lien ci-dessous.
+      invite_admin:
+        subject: Vous avez été invité à gérer la plateforme des pétitions de l'Assemblée
+          nationale
+      organization_admin_invitation_instructions:
+        subject: Vous avez été invité à gérer la plateforme des pétitions de l'Assemblée
+          nationale
+  carrierwave:
+    errors:
+      image_too_big: Image too big
+  errors:
+    messages:
+      taken: Cette adresse mail est déjà utilisée pour un autre compte
